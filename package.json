@@ -1,7 +1,7 @@
 {
   "name": "webdev-template",
   "version": "1.0.0",
-  "description": "run 'npm install' after cloning the repos see all available commands in 'package.json'",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db": "node backend/models/buildDatabase.js",
-    "db-fn": "node backend/models/buildFunctions.js\"",
+    "db-fn": "node backend/models/buildFunctions.js",
     "genkey": "node backend/config/generateKeyPair.js",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
@@ -29,6 +29,7 @@
     "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "pg": "^8.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

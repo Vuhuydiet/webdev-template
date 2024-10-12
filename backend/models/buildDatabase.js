@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import path from 'path';
+import getPath from '../lib/getPath.js';
 import fs from 'fs/promises';
 
-import { Client } from 'pg';
-import { client_encoding, connectionString } from 'pg/lib/defaults';
+import pkg from 'pg';
+const { Client } = pkg;
 
 function getClient(database) {
   return new Client({
@@ -21,7 +21,7 @@ function getClient(database) {
 async function build(sqlScript = 'scripts/database.sql') {
   try {
     console.log(`INFO: reading '${sqlScript}' script file(s)...`);
-    const SQL = await fs.readFile(path.join(__dirname, sqlScript), 'utf8');
+    const SQL = await fs.readFile(getPath(import.meta.url, sqlScript), 'utf8');
 
     console.log('INFO: creating database...');
     const client = getClient('postgres');

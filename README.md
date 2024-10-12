@@ -5,5 +5,14 @@ run 'npm install' after cloning the repos.
   - next, 'npm run db-fn' to build functions
 2. set up private/public key for authentication
   - run 'npm run genkey'
+3. set up '.env' file as follow:
+```env
+NODE_ENV=development
 
+DB_HOST=localhost
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+DB_PORT=
+```
 see more commands in the 'package.json' file.

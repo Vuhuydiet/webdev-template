@@ -7,6 +7,8 @@ import express from 'express';
 const app = express();
 import cors from 'cors';
 
+import serveInfo from './lib/getServeInfo.js'
+
 // import routes
 
 
@@ -16,20 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // static assets
-const envArg = process.argv.find(arg => arg.startsWith('NODE_ENV='));
-const NODE_ENV = envArg ? envArg.split('=')[1] : null;
-const servePath = (() => { 
-  switch (NODE_ENV) {
-    case 'production': return getPath(import.meta.url, '../frontend/dist');
-    case 'development': return getPath(import.meta.url, '../frontend');
-  }
-  console.error('NODE_ENV not set');
-  process.exit(1);
-})();
-const serveIndexPath = path.join(servePath, 'index.html');
-app.use(express.static(servePath));
+app.use(express.static(serveInfo.servePath));
 app.get('*', (req, res) => {
-  res.sendFile(serveIndexPath);
+  res.sendFile(serveInfo.serveIndexPath);
 });
 
 // routes

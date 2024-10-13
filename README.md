@@ -2,8 +2,6 @@ run 'npm install' after cloning the repos.
 
 1. set up '.env' file as follow:
 ```env
-NODE_ENV=development
-
 DB_HOST=localhost
 DB_USER=
 DB_PASSWORD=

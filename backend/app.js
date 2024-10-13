@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import getPath from './lib/getPath.js';
+import path from 'path';
 
 import express from 'express';
 const app = express();
@@ -15,18 +16,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(getPath(import.meta.url, '../client/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(getPath(import.meta.url, '../client/dist/index.html'));
-  });
-} else {
-  app.use(express.static(getPath(import.meta.url, '../client')));
-  app.get('*', (req, res) => {
-    res.sendFile(getPath(import.meta.url, '../client/index.html'));
-  });
-}
-
+const envArg = process.argv.find(arg => arg.startsWith('NODE_ENV='));
+const NODE_ENV = envArg ? envArg.split('=')[1] : null;
+const servePath = (() => { 
+  switch (NODE_ENV) {
+    case 'production': return getPath(import.meta.url, '../frontend/dist');
+    case 'development': return getPath(import.meta.url, '../frontend');
+  }
+  console.error('NODE_ENV not set');
+  process.exit(1);
+})();
+const serveIndexPath = path.join(servePath, 'index.html');
+app.use(express.static(servePath));
+app.get('*', (req, res) => {
+  res.sendFile(serveIndexPath);
+});
 
 // routes
 

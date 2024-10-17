@@ -1,4 +1,4 @@
-import { getPathFromBackend } from '../utils/getPath.js';
+import { getPathFromBackend } from './getPath.js';
 import path from 'path';
 
 const envArg = process.argv.find((arg) => arg.startsWith('NODE_ENV='));
@@ -15,8 +15,7 @@ const servePath = (() => {
 })();
 const serveIndexPath = path.join(servePath, 'index.html');
 
-export {
+export default {
   servePath,
   serveIndexPath,
-  NODE_ENV,
 };

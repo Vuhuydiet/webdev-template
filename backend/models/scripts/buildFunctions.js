@@ -8,11 +8,7 @@ import { client_encoding, connectionString } from 'pg/lib/defaults';
 
 function getClient(database) {
   return new Client({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: database,
-    port: process.env.DB_PORT,
+    connectionString: `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${database}`,
 
     client_encoding: 'UTF8',
   });

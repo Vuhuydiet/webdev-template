@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { Pool } from 'pg';
-import client_encoding from 'pg/lib/defaults';
 
 export default new Pool({
   host: process.env.DB_HOST,

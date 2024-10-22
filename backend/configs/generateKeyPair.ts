@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import fs from 'fs';
-import { getPathFromBackend } from '../utils/getPath.js';
+import getPathFromBackend from '../utils/getPath.js';
 
 // Generate RSA key pair
 crypto.generateKeyPair(

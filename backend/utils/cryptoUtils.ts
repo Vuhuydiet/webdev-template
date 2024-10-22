@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-function getHashedPassword(password, salt) {
+function getHashedPassword(password: string, salt?: string): string {
   const saltLength = 16;
   const iterations = 10000;
   const keyLength = 64;
@@ -13,7 +13,7 @@ function getHashedPassword(password, salt) {
   return `${salt}:${hash}`;
 }
 
-function invalidatePassword(inputPassword, storedHash) {
+function invalidatePassword(inputPassword: string, storedHash: string) {
   const [salt, originalHash] = storedHash.split(':');
   const hashed = getHashedPassword(inputPassword, salt);
   return hashed === originalHash;

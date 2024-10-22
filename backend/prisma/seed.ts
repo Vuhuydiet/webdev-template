@@ -1,32 +1,33 @@
-// prisma/seed.ts
 import prisma from './index.js';
 
+import { getHashedPassword } from '../utils/cryptoUtils.js';
+
 async function main() {
-  await prisma.user.createMany({
-    data: [
-      { 
-        name: 'Alice',
-        isAdmin: true,
-        preferences: {}
-      },
-      { 
-        name: 'Bob',
-        isAdmin: false,
-        preferences: {}
-      },
-      { 
-        name: 'Charlie',
-        isAdmin: false,
-        preferences: {}
-      }
-    ]
-  })
+  const users = [
+    { 
+      username: 'Alice',
+      password: getHashedPassword('password')
+    },
+    { 
+      username: 'Bob',
+      password: getHashedPassword('password')
+    },
+    { 
+      username: 'Charlie',
+      password: getHashedPassword('password')
+    }
+  ];
+
+  await prisma.$transaction(async (prisma) => {
+    await prisma.user.createMany({
+      data: users
+    });
+  });
 
   console.log('Database has been seeded!');
 }
 
-main()
-  .catch((e) => {
+main().catch((e) => {
     console.error(e);
     process.exit(1);
   })
